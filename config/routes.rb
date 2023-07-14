@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
   end
-  
+
   resources :users, only: [:index,:show,:edit,:update] do
     #member→resorcesで生成されるルートに、決められたルート以外のルートを追加するための処理
     member do
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy]
   end
 
+  get "search" => "searches#search"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
 end
