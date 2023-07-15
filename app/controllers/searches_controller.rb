@@ -3,15 +3,16 @@ class SearchesController < ApplicationController
 
   def search
     #params[:range]検索モデル
-    @range=params[:range]
+    @model=params[:model]
     #params[:word]検索ワード
-    @word=params[:word]
+    @content=params[:content]
+    @method=params[:method]
 
-    if @range=="User"
+    if @model=="user"
       #params[:search]検索方法
-      @users=User.looks(params[:search], params[:word])
+      @records=User.search_for(@content, @method)
     else
-      @books=Book.looks(params[:search], params[:word])
+      @records=Book.search_for(@content, @method)
     end
   end
 end

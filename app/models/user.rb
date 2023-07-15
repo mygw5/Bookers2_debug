@@ -11,16 +11,16 @@ class User < ApplicationRecord
 
   #フォローをした、されたの関係
   #アソシエーションが繋がっているテーブル名,実際のモデル名,外部キーとして何を持つか
-  has_many :followers, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :followeds, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   #一覧で使用
   #架空のテーブル名,中間テーブル名,実際にデータを取得しにいくテーブル名
-  has_many :following_users, through: :followers, source: :followed
-  has_many :follower_users, through: :followeds, source: :follower
+  has_many :followings, through: :relationships, source: :followed
+  has_many :followers, through: :reverse_of_relationships, source: :follower
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
 
-  validates :introduction, length: {maximum: 50 }
+  validates :introduction, length: { maximum: 50 }
 
 
   def get_profile_image
@@ -28,36 +28,30 @@ class User < ApplicationRecord
   end
 
   #フォローした時の処理
-  def follow(user_id)
-    followers.create(followed_id: user_id)
+  def follow(user)
+    relationships.create(followed_id: user.id)
   end
 
-
   #フォローを外す時の処理
-  def unfollow(user_id)
-    followers.find_by(followed_id: user_id).destroy
-
+  def unfollow(user)
+    relationships.find_by(followed_id: user.id).destroy
   end
   #フォローしていればtrueを返す
   def following?(user)
-    following_users.include?(user)
+    followings.include?(user)
   end
 
   #検索方法分岐
-  def self.looks(search, word)
-    if search == "perfect_match"
-      @user = User.where("name LIKE?", "#{word}")
+  def self.search_for(content, method)
+    if method == 'perfect'
+      User.where(name: content)
       #LIKEのあいまい検索構文
-    elsif search == "forward_match"
-      @user = User.where("name LIKE?", "#{word}%")
-    elsif search == "backward_match"
-      @user = User.where("name LIKE?", "%#{word}")
-    elsif search == "partial_match"
-      @user = User.where("name LIKE?", "%#{word}%")
+    elsif method == 'forward'
+      User.where('name LIKE?', content + '%')
+    elsif method == 'backward'
+      User.where('name LIKE ?', '%' + content)
     else
-      @ser = User.all
+      User.where('name LIKE ?', '%' + content + '%')
     end
-
   end
-
 end
