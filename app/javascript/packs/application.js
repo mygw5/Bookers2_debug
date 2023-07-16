@@ -17,3 +17,8 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+//=require jquery
+//require("@rails/ujs").start()
+//require("turbolinks").start()
+//require("prails/activestorage").start()
+//require("channels")
