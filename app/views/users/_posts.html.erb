@@ -15,7 +15,7 @@
       <td>-</td>
     <% else %>
       <td>
-        <% the_previous_day = today_book.count / yesterday_book.count %>
+        <% the_previous_day = today_book.count / yesterday_book.count.to_f %>
         <%= (the_previous_day*100).round %>
       </td>
     <% end %>
@@ -39,7 +39,7 @@
       <td>-</td>
     <% else %>
     <td>
-      <% the_previous_week = this_week_book.count / last_week_book.count %>
+      <% the_previous_week = this_week_book.count / last_week_book.count.to_f %>
       <%= (the_previous_week*100).round %>
     </td>
     <% end %>
