@@ -12,5 +12,10 @@
       <!-- render 'posts', today_book: @today_book, yesterday_book: @yesterday_book,
       this_week_book: @this_week_book, last_week_book: @last_week_book -->
       <%= render 'chart', today_book: @today_book, yesterday_book: @yesterday_book, books: @books %>
+      <%= render 'finders/finder', user: @user %>
+      <h4>検索結果</h4>
+      <%= render 'finders/finder_index', finder_book: @finder_book %>
+
+    </div>
   </div>
 </div>
