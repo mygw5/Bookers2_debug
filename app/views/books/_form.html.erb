@@ -9,7 +9,7 @@
   </div>
    <% if book.id.nil? %>
     <div class="form-group" id="star">
-      <%= f.label :Rate %>
+      <%= f.label :rate %>
       <%= f.hidden_field :star, id: :review_star, class: 'form-control' %>
       <div class="form-group">
        <div id="post_raty"></div>
@@ -22,7 +22,7 @@
         let opt = {
           starOn: "<%= asset_path('star-on.png') %>",
           starOff: "<%= asset_path('star-off.png') %>",
-          starHarf: "<%= asset_path('star-half.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
           scoreName: 'book[star]',
         };
         raty(elem,opt);
