@@ -13,7 +13,12 @@
     <%= render 'layouts/header' %>
       <main>
         <p id="notice"><%= notice %></p>
-        <%= render 'searches/search' %>
+        <% if user_signed_in? %>
+          <div class="search-form">
+            <%= render 'searches/search' %>
+            <%= render 'tagsearches/tag' %>
+          </div>
+        <% end %>
         <%= yield %>
       </main>
     <%= render 'layouts/footer' %>

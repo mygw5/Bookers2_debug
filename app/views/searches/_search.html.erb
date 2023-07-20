@@ -1,14 +1,10 @@
-<% if user_signed_in? %>
-  <div class="search_from">
-    <!--検索内容を作成したルーティングに送信-->
-    <%= form_with url: search_path, local: true, method: :get do |f| %>
-      <!--検索内容をwordとしてアクションへ送る-->
-      <%= f.text_field :content %>
-      <!--複数モデルを検索できるように実装するため、Userモデル,Bookモデルを選択できるようにしている-->
-      <%= f.select :model, options_for_select({ "User" => "user", "Book" => "book" } ) %>
-      <!--検索手法を定義 -->
-      <%= f.select :method, options_for_select({ "完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial"}) %>
-      <%= f.submit "検索" %>
-    <% end %>
-  </div>
+<!--検索内容を作成したルーティングに送信-->
+<%= form_with url: search_path, local: true, method: :get do |f| %>
+  <!--検索内容をwordとしてアクションへ送る-->
+  <%= f.text_field :content %>
+  <!--複数モデルを検索できるように実装するため、Userモデル,Bookモデルを選択できるようにしている-->
+  <%= f.select :model, options_for_select({ "User" => "user", "Book" => "book" } ) %>
+  <!--検索手法を定義 -->
+  <%= f.select :method, options_for_select({ "完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial"}) %>
+  <%= f.submit "検索" %>
 <% end %>

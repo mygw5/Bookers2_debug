@@ -37,8 +37,5 @@ class Book < ApplicationRecord
 
   scope :latest, -> { order(created_at: :desc) }
   scope :star_count, -> { order(star: :desc) }
-
-
-
-
+  validates :tag,presence: true
 end
