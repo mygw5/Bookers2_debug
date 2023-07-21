@@ -9,7 +9,7 @@ class BooksController < ApplicationController
 
   def index
     @book=Book.new
-    @books = Book.all
+    #@books = Book.all
     if params[:latest]
       @books = Book.latest
     elsif params[:star_count]
@@ -17,6 +17,9 @@ class BooksController < ApplicationController
     else
       @books=Book.all
     end
+    to=Time.current.at_end_of_day
+    from=(to-6.day).at_beginning_of_day
+    @books=Book.includes(:favorites).sort_by{|x| x.favorites.where(created_at: from...to).size}.reverse
   end
 
   def create
