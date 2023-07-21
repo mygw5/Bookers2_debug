@@ -6,6 +6,10 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book_comment=BookComment.new
     @user=@book.user
+    unless ViewCount.find_by(user_id: current_user.id, book_id: @book.id)
+      current_user.view_counts.create(book_id: @book.id)
+    end
+    #チャット
     @current_user_entry=Entry.where(user_id: current_user.id)
     @user_entry=Entry.where(user_id: @user.id)
     if @user.id == current_user.id
@@ -34,7 +38,6 @@ class BooksController < ApplicationController
     elsif params[:star_count]
       @books=Book.star_count
     else
-
       to=Time.current.at_end_of_day
       from=(to-6.day).at_beginning_of_day
       #いいね順に一覧を表示
