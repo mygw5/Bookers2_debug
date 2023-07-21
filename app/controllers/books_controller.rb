@@ -5,21 +5,42 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @book_comment=BookComment.new
+    @user=@book.user
+    @current_user_entry=Entry.where(user_id: current_user.id)
+    @user_entry=Entry.where(user_id: @user.id)
+    if @user.id == current_user.id
+    else
+      @current_user_entry.each do |cu|
+        @user_entry.each do |u|
+          if cu.room_id == u.room_id then
+            @is_room = true
+            @roomid = cu.room_id
+          end
+        end
+      end
+      if @is_room
+      else
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
   end
 
   def index
     @book=Book.new
-    #@books = Book.all
+    @books = Book.all
     if params[:latest]
       @books = Book.latest
     elsif params[:star_count]
       @books=Book.star_count
     else
-      @books=Book.all
+
+      to=Time.current.at_end_of_day
+      from=(to-6.day).at_beginning_of_day
+      #いいね順に一覧を表示
+      @books=Book.includes(:favorites).sort_by{|x| x.favorites.where(created_at: from...to).size}.reverse
     end
-    to=Time.current.at_end_of_day
-    from=(to-6.day).at_beginning_of_day
-    @books=Book.includes(:favorites).sort_by{|x| x.favorites.where(created_at: from...to).size}.reverse
+
   end
 
   def create

@@ -10,6 +10,24 @@ class UsersController < ApplicationController
     @yesterday_book = @books.created_yesterday
     #@this_week_book = @books.created_this_week
     #@last_week_book = @books.created_last_week
+    @current_user_entry=Entry.where(user_id: current_user.id)
+    @user_entry=Entry.where(user_id: @user.id)
+    if @user.id == current_user.id
+    else
+      @current_user_entry.each do |cu|
+        @user_entry.each do |u|
+          if cu.room_id == u.room_id then
+            @is_room = true
+            @roomid = cu.room_id
+          end
+        end
+      end
+      if @is_room
+      else
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
   end
 
   def index

@@ -14,9 +14,11 @@
       <main>
         <p id="notice"><%= notice %></p>
         <% if user_signed_in? %>
-          <div class="search-form">
-            <%= render 'searches/search' %>
-            <%= render 'tagsearches/tag' %>
+          <div class="search-form d-flex justify-content-around mb-3">
+            <% if %w[books_path users_path].any? { |root| current_page?(send("#{root}"))} %>
+              <%= render 'searches/search' %>
+              <%= render 'tagsearches/tag' %>
+            <% end %>
           </div>
         <% end %>
         <%= yield %>

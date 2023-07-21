@@ -17,7 +17,8 @@ class User < ApplicationRecord
   #架空のテーブル名,中間テーブル名,実際にデータを取得しにいくテーブル名
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
-
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
 
   validates :introduction, length: { maximum: 50 }
@@ -54,5 +55,5 @@ class User < ApplicationRecord
       User.where('name LIKE ?', '%' + content + '%')
     end
   end
-    
+
 end

@@ -1,0 +1,12 @@
+<% if (current_user.following? user) && (user.following? current_user) %>
+  <% if is_room == true %>
+    <p class="user-show-room"><%= link_to 'chatを始める', room_path(roomid) %></p>
+  <% else %>
+    <%= form_for room do |f| %>
+      <%= fields_for entry do |e| %>
+        <%= e.hidden_field :user_id, value: user.id %>
+      <% end %>
+      <%= f.submit "chat start"%>
+    <% end %>
+  <% end %>
+<% end %>
