@@ -23,8 +23,9 @@ Rails.application.routes.draw do
   get "tagsearch" => "tagsearches#tagsearch"
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :show]
-  resources :groups, except:[:destroy]
-  resources :group_users,  only: [:update, :create]
+  resources :groups, except:[:destroy] do
+    resource :group_users,  only: [:create, :destroy]
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
 end

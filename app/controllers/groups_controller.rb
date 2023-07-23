@@ -19,7 +19,6 @@ class GroupsController < ApplicationController
   def show
     @group=Group.find(params[:id])
     @book=Book.new
-    @user=User.find(params[:id])
   end
 
   def index
