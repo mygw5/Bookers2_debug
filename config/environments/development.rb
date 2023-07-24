@@ -78,14 +78,14 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method=:smtp
   config.action_mailer.smtp_settings={
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain: 'smtp.gmail.com',
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'gmail.com',
     #gitにpushしないよう気をつけること↓
-    user_name: '送信元Gmail',
+    user_name:            '',
     #gitにpushしないよう気をつけること↓
-    password: 'アプリパスワード',
-    authentication: 'login',
+    password:             '',
+    authentication:       'login',
     enable_starttls_auto: true
     }
 end

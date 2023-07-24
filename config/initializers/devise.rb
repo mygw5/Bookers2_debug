@@ -26,7 +26,7 @@ Devise.setup do |config|
   # with default "from" parameter.
 
   #gitにpushしないよう気をつけること↓
-  config.mailer_sender = '送信元Gmail'
+  config.mailer_sender = ''
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
