@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
 
-  get 'finders/finder'
+  #get 'finders/finder'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   devise_for :users
   root to: "homes#top"
@@ -27,6 +27,10 @@ Rails.application.routes.draw do
     resource :group_users,  only: [:create, :destroy]
     get "new/mail" => "groups#new_mail"
     get "send/mail" => "groups#send_mail"
+  end
+
+  devise_scope :user do
+    post "users/guest_sign_in", to: "users/sessions#guest_sign_in"
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

@@ -10,7 +10,7 @@ class BooksController < ApplicationController
     view_count=ViewCount.new(user_id: current_user.id, book_id: @book.id)
     view_count.save
 
-    #ユーザー（一度きりの回数）
+     #ユーザー（一度きりの回数）
     #unless ViewCount.find_by(user_id: current_user.id, book_id: @book.id)
       #current_user.view_counts.create(book_id: @book.id)
     #end
@@ -33,6 +33,7 @@ class BooksController < ApplicationController
         @entry = Entry.new
       end
     end
+
   end
 
   def index
